@@ -1,4 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
+import argparse
+import os, sys
 
 def generate_tile(initials, save_path, bgColor=(15,15,15), fgColor='white'):
     canvas_w, canvas_h = 400, 400
@@ -20,6 +22,19 @@ def generate_initials_from_string(text):
         else:
             return "".join([split_text[0][0].capitalize(), split_text[-1][0].capitalize()])
 
-initials = generate_initials_from_string(input("Enter your name:\n"))
+my_parser = argparse.ArgumentParser(description="Generate a name initials tile icon given name")
 
-generate_tile(initials, "/home/udasitharani/Pictures/initials.png", bgColor=(250,250,250), fgColor='black')
+my_parser.add_argument("Name", metavar="name", type=str, help="Name to generate initials.")
+my_parser.add_argument("Save_Path", metavar="save_path", type=str, help="Path where the generate tile should be saved.")
+my_parser.add_argument("Background_Color", metavar="background_color", type=str, help="Background Color to be used in tile.")
+my_parser.add_argument("Text_Color", metavar="text_color", type=str, help="Color of the text to be used in tile.")
+
+args = my_parser.parse_args()
+
+if not os.path.isdir(os.path.split(args.Save_Path)[0]):
+    print("The path does not exist.")
+    sys.exit()
+
+initials = generate_initials_from_string(args.Name)
+
+generate_tile(initials, args.Save_Path, bgColor=args.Background_Color, fgColor=args.Text_Color)
