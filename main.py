@@ -20,7 +20,6 @@ def generate_initials_from_string(text):
         else:
             return "".join([split_text[0][0].capitalize(), split_text[-1][0].capitalize()])
 
-initials = generate_initials_from_string(input("Enter you name:\n"))
-print(initials)
+initials = generate_initials_from_string(input("Enter your name:\n"))
 
 generate_tile(initials, "/home/udasitharani/Pictures/initials.png", bgColor=(250,250,250), fgColor='black')
