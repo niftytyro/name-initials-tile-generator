@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "nit"
+version = "0.1.0"
+description = "A tool to generate tiles with name initials."
+authors = ["Udasi Tharani <udasitharani@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.4"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+nit = "main:main"

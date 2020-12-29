@@ -2,7 +2,7 @@ from PIL import Image, ImageDraw, ImageFont
 import argparse
 import os, sys
 
-def generate_tile(initials, save_path, bgColor=(15,15,15), fgColor='white'):
+def generate_tile(initials, save_path, bgColor, fgColor):
     canvas_w, canvas_h = 400, 400
     poppinsFont = ImageFont.truetype("/home/udasitharani/Downloads/ttf/Poppins-Medium.ttf", 200)
     
@@ -22,21 +22,23 @@ def generate_initials_from_string(text):
         else:
             return "".join([split_text[0][0].capitalize(), split_text[-1][0].capitalize()])
 
+def generate_tile_from_initials(text, save_path, bgColor=(15,15,15), fgColor="white"):
+    initials = generate_initials_from_string(text)
+    generate_tile(initials, save_path, bgColor, fgColor)
+
 my_parser = argparse.ArgumentParser(prog="name initials tile generator",
                                     usage="$(prog)s [options] name save_path background_color text_color",
                                     description="Generate a name initials tile icon given name")
 
 my_parser.add_argument("Name", metavar="name", type=str, help="Name to generate initials.")
 my_parser.add_argument("Save_Path", metavar="save_path", type=str, help="Path where the generated tile should be saved.")
-my_parser.add_argument("Background_Color", metavar="background_color", type=str, help="Background color to be used in tile.")
-my_parser.add_argument("Text_Color", metavar="text_color", type=str, help="Color of the text to be used in tile.")
+my_parser.add_argument("-bg", "--bg_color", type=str, help="Background color to be used in tile.")
+my_parser.add_argument("-fg", "--fg_color", type=str, help="Color of the text to be used in tile.")
 
 args = my_parser.parse_args()
 
 if not os.path.isdir(os.path.split(args.Save_Path)[0]):
     print("The path does not exist.")
     sys.exit()
-
-initials = generate_initials_from_string(args.Name)
-
-generate_tile(initials, args.Save_Path, bgColor=args.Background_Color, fgColor=args.Text_Color)
+kwargs = dict(text=args.Name, save_path=args.Save_Path, bgColor=args.bg_color, fgColor=args.fg_color)
+generate_tile_from_initials(**{k: v for k, v in kwargs.items() if v is not None})
