@@ -28,7 +28,7 @@ def generate_tile_from_initials(text, save_path, bgColor=(15,15,15), fgColor="wh
 
 def main():
     my_parser = argparse.ArgumentParser(prog="name initials tile generator",
-                                        usage="$(prog)s [options] name save_path background_color text_color",
+                                        usage="$(prog)s [options] name save_path",
                                         description="Generate a name initials tile icon given name")
 
     my_parser.add_argument("Name", metavar="name", type=str, help="Name to generate initials.")
