@@ -1,4 +1,5 @@
 import argparse, os, sys
+from nit import generate_tile, generate_tile_from_initials, generate_initials_from_string
 
 my_parser = argparse.ArgumentParser(prog="name initials tile generator",
                                     usage="$(prog)s [options] name save_path",
